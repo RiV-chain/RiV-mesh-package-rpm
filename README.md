@@ -1,4 +1,4 @@
-# Yggdrasil RPM
+# RiV-mesh RPM
 
 This is a specification file used to build RPMs for RiV-mesh.
 
