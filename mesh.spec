@@ -1,5 +1,5 @@
 Name:           RiV-mesh
-Version:        0.4.0
+Version:        0.4.0.1
 Release:        1%{?dist}
 Summary:        IoT end-to-end encrypted IPv6 network
 
