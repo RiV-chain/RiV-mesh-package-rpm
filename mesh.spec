@@ -1,31 +1,34 @@
-Name:           yggdrasil
-Version:        0.4.0
+Name:           mesh
+Version:        0.4.0.1rc6
 Release:        1%{?dist}
-Summary:        End-to-end encrypted IPv6 networking
+Summary:        IoT end-to-end encrypted IPv6 network
 
 License:        GPLv3
-URL:            https://yggdrasil-network.github.io
-Source:         https://codeload.github.com/yggdrasil-network/yggdrasil-go/tar.gz/v%{version}
+URL:            https://github.com/RiV-chain
+Source:         https://codeload.github.com/RiV-chain/RiV-mesh/tar.gz/v%{version}
 
 %{?systemd_requires}
-BuildRequires:  systemd golang >= 1.13 git
+#BuildRequires:  systemd golang >= 1.13 git
 Requires(pre):  shadow-utils
-Conflicts:      yggdrasil-develop
+Conflicts:      RiV-mesh-develop
 
 %description
-Yggdrasil is a proof-of-concept to explore a wholly different approach to
-network routing. Whereas current computer networks depend heavily on very
-centralised design and configuration, Yggdrasil breaks this mould by making
-use of a global spanning tree to form a scalable IPv6 encrypted mesh network.
+RiV-mesh is an implementation of a fully end-to-end encrypted IPv6 network,
+created in the scope to produce the Transport Layer for RiV Chain Blockchain,
+also to facilitate secure conectivity between a wide spectrum of endpoint devices like IoT devices,
+desktop computers or even routers.
+It is lightweight, self-arranging, supported on multiple platforms and allows pretty
+much any IPv6-capable application to communicate securely with other RiV-mesh nodes.
+RiV-mesh does not require you to have IPv6 Internet connectivity - it also works over IPv4.
 
 %define debug_package %{nil}
 
 %pre
-getent group yggdrasil >/dev/null || groupadd -r yggdrasil
+getent group mesh >/dev/null || groupadd -r mesh
 exit 0
 
 %prep
-%setup -qn yggdrasil-go-%{version}
+%setup -qn RiV-mesh-%{version}
 
 %build
 export PKGNAME="%{name}"
@@ -35,20 +38,20 @@ export GOPROXY="https://proxy.golang.org,direct"
 
 %install
 rm -rf %{buildroot}
-install -m 0755 -D yggdrasil %{buildroot}/%{_bindir}/yggdrasil
-install -m 0755 -D yggdrasilctl %{buildroot}/%{_bindir}/yggdrasilctl
-install -m 0755 -D contrib/systemd/yggdrasil.service %{buildroot}/%{_sysconfdir}/systemd/system/yggdrasil.service
+install -m 0755 -D mesh %{buildroot}/%{_bindir}/mesh
+install -m 0755 -D meshctl %{buildroot}/%{_bindir}/meshctl
+install -m 0755 -D contrib/systemd/mesh.service %{buildroot}/%{_sysconfdir}/systemd/system/mesh.service
 
 %files
-%{_bindir}/yggdrasil
-%{_bindir}/yggdrasilctl
-%{_sysconfdir}/systemd/system/yggdrasil.service
+%{_bindir}/mesh
+%{_bindir}/meshctl
+%{_sysconfdir}/systemd/system/mesh.service
 
 %post
-%systemd_post yggdrasil.service
+%systemd_post mesh.service
 
 %preun
-%systemd_preun yggdrasil.service
+%systemd_preun mesh.service
 
 %postun
-%systemd_postun_with_restart yggdrasil.service
+%systemd_postun_with_restart mesh.service
