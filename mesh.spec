@@ -10,7 +10,7 @@ Source:         https://codeload.github.com/RiV-chain/RiV-mesh/tar.gz/v%{version
 %{?systemd_requires}
 #BuildRequires:  systemd golang >= 1.13 git
 Requires(pre):  shadow-utils
-Conflicts:      RiV-mesh-develop
+Conflicts:      mesh-develop
 
 %description
 RiV-mesh is an implementation of a fully end-to-end encrypted IPv6 network,
