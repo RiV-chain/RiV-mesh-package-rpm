@@ -8,7 +8,7 @@ URL:            https://github.com/RiV-chain
 Source:         https://codeload.github.com/RiV-chain/RiV-mesh/tar.gz/v%{version}
 
 %{?systemd_requires}
-#BuildRequires:  systemd golang >= 1.13 git
+BuildRequires:  systemd golang >= 1.16 git
 Requires(pre):  shadow-utils
 Conflicts:      mesh-develop
 
