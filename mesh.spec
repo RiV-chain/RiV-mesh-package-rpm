@@ -5,7 +5,7 @@ Summary:        IoT end-to-end encrypted IPv6 network
 
 License:        GPLv3
 URL:            https://github.com/RiV-chain
-Source:         https://codeload.github.com/RiV-chain/RiV-mesh/tar.gz/v%{version}
+Source0:        https://codeload.github.com/RiV-chain/RiV-mesh/tar.gz/v%{version}
 
 %{?systemd_requires}
 BuildRequires:  systemd golang >= 1.16 git
