@@ -43,15 +43,30 @@ install -m 0755 -D meshctl %{buildroot}/%{_bindir}/meshctl
 install -m 0755 -D contrib/systemd/mesh.service %{buildroot}/%{_sysconfdir}/systemd/system/mesh.service
 
 %files
+%defattr(-,root,root)
+%config(noreplace) %{_sysconfdir}/mesh.config
 %{_bindir}/mesh
 %{_bindir}/meshctl
 %{_sysconfdir}/systemd/system/mesh.service
 
 %post
-%systemd_post mesh.service
+/sbin/chkconfig --add mesh >/dev/null 2>/dev/null #supress notes on systemd
+
+if [ "$1" -ge "1" ]; then
+    /sbin/service mesh condrestart >/dev/null 2>&1 || :
+fi
+echo "-----------------------------------------------------------------------------" > /dev/stderr
+echo "  To finish the installation, you need to configure the peers list and" > /dev/stderr
+echo "  in the file /etc/mesh.config." > /dev/stderr
+echo "  Then run 'service mesh start'." > /dev/stderr
+echo "-----------------------------------------------------------------------------" > /dev/stderr
 
 %preun
-%systemd_preun mesh.service
+if [ $1 = 0 ] ; then
+    /sbin/service mesh stop >/dev/null 2>&1 || :
+    /sbin/chkconfig --del mesh >/dev/null 2>/dev/null #supress notes on systemd
+fi
+exit 0
 
 %postun
 %systemd_postun_with_restart mesh.service
