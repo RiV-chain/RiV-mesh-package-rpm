@@ -53,11 +53,24 @@ install -m 0755 -D contrib/systemd/mesh.service %{buildroot}/%{_sysconfdir}/syst
 if [ "$1" -ge "1" ]; then
     /sbin/service mesh condrestart >/dev/null 2>&1 || :
 fi
-echo "-----------------------------------------------------------------------------" > /dev/stderr
-echo "  To finish the installation, you need to configure the peers list and" > /dev/stderr
-echo "  in the file /etc/mesh.config." > /dev/stderr
-echo "  Then run 'service mesh start'." > /dev/stderr
-echo "-----------------------------------------------------------------------------" > /dev/stderr
+
+if [ -f /etc/mesh.conf ]; then
+  mkdir -p /var/backups
+  echo "Backing up configuration file to /var/backups/mesh.conf.`date +%Y%m%d`"
+  cp /etc/mesh.conf /var/backups/mesh.conf.`date +%Y%m%d`
+  echo "Normalising and updating /etc/mesh.conf"
+  /usr/bin/mesh -useconf -normaliseconf < /var/backups/mesh.conf.`date +%Y%m%d` > /etc/mesh.conf
+else
+  echo "-----------------------------------------------------------------------------" > /dev/stderr
+  echo "  To finish the installation, you need to configure the peers list" > /dev/stderr
+  echo "  in the file /etc/mesh.config." > /dev/stderr
+  echo "  Then run 'service mesh start'." > /dev/stderr
+  echo "-----------------------------------------------------------------------------" > /dev/stderr
+  echo "Generating initial configuration file /etc/mesh.conf"
+  echo "Please familiarise yourself with this file before starting RiV-mesh"
+  sh -c 'umask 0027 && /usr/bin/mesh -genconf > /etc/mesh.conf'
+fi
+chmod 755 /etc/mesh.conf
 
 %preun
 if [ $1 = 0 ] ; then
