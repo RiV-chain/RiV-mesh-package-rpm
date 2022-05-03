@@ -7,7 +7,6 @@ License:        GPLv3
 URL:            https://github.com/RiV-chain
 Source0:        https://codeload.github.com/RiV-chain/RiV-mesh/tar.gz/v%{version}
 
-%{?systemd_requires}
 BuildRequires:  systemd golang >= 1.16 git
 Requires(pre):  shadow-utils
 Requires(post): /sbin/chkconfig, /sbin/service
@@ -22,8 +21,6 @@ desktop computers or even routers.
 It is lightweight, self-arranging, supported on multiple platforms and allows pretty
 much any IPv6-capable application to communicate securely with other RiV-mesh nodes.
 RiV-mesh does not require you to have IPv6 Internet connectivity - it also works over IPv4.
-
-%define debug_package %{nil}
 
 %pre
 getent group mesh >/dev/null || groupadd -r mesh
