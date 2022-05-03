@@ -63,8 +63,7 @@ if [ -f /etc/mesh.conf ]; then
 else
   echo "-----------------------------------------------------------------------------" > /dev/stderr
   echo "  To finish the installation, you need to configure the peers list" > /dev/stderr
-  echo "  in the file /etc/mesh.config." > /dev/stderr
-  echo "  Then run 'service mesh start'." > /dev/stderr
+  echo "  in the file /etc/mesh.config then run 'service mesh start'." > /dev/stderr
   echo "-----------------------------------------------------------------------------" > /dev/stderr
   echo "Generating initial configuration file /etc/mesh.conf"
   echo "Please familiarise yourself with this file before starting RiV-mesh"
