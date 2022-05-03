@@ -41,12 +41,6 @@ install -m 0755 -D mesh %{buildroot}/%{_bindir}/mesh
 install -m 0755 -D meshctl %{buildroot}/%{_bindir}/meshctl
 install -m 0755 -D contrib/systemd/mesh.service %{buildroot}/%{_sysconfdir}/systemd/system/mesh.service
 
-%files
-%defattr(-,root,root)
-%{_bindir}/mesh
-%{_bindir}/meshctl
-%{_sysconfdir}/systemd/system/mesh.service
-
 %post
 /sbin/chkconfig --add mesh >/dev/null 2>/dev/null #supress notes on systemd
 
@@ -78,5 +72,8 @@ if [ $1 = 0 ] ; then
 fi
 exit 0
 
-%postun
-%systemd_postun_with_restart mesh.service
+%files
+%defattr(-,root,root)
+%{_bindir}/mesh
+%{_bindir}/meshctl
+%{_sysconfdir}/systemd/system/mesh.service
