@@ -10,6 +10,8 @@ Source0:        https://codeload.github.com/RiV-chain/RiV-mesh/tar.gz/v%{version
 %{?systemd_requires}
 BuildRequires:  systemd golang >= 1.16 git
 Requires(pre):  shadow-utils
+Requires(post): /sbin/chkconfig, /sbin/service
+Requires(preun): /sbin/chkconfig, /sbin/service
 Conflicts:      mesh-develop
 
 %description
@@ -44,7 +46,6 @@ install -m 0755 -D contrib/systemd/mesh.service %{buildroot}/%{_sysconfdir}/syst
 
 %files
 %defattr(-,root,root)
-%config(noreplace) %{_sysconfdir}/mesh.config
 %{_bindir}/mesh
 %{_bindir}/meshctl
 %{_sysconfdir}/systemd/system/mesh.service
