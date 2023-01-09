@@ -7,7 +7,7 @@ License:        GPLv3
 URL:            https://github.com/RiV-chain
 Source0:        https://codeload.github.com/RiV-chain/RiV-mesh/tar.gz/v%{version}
 
-BuildRequires:  systemd golang >= 1.16 git
+BuildRequires:  systemd golang >= 1.18 git
 Requires(pre):  shadow-utils
 Requires(post): /sbin/chkconfig, /sbin/service
 Requires(preun): /sbin/chkconfig, /sbin/service
@@ -40,6 +40,7 @@ rm -rf %{buildroot}
 install -m 0755 -D mesh %{buildroot}/%{_bindir}/mesh
 install -m 0755 -D meshctl %{buildroot}/%{_bindir}/meshctl
 install -m 0755 -D contrib/systemd/mesh.service %{buildroot}/%{_sysconfdir}/systemd/system/mesh.service
+install -m 0755 -D contrib/ui/mesh-ui/ui %{buildroot}/%{_datadir}/riv/ui
 
 %post
 /sbin/chkconfig --add mesh >/dev/null 2>/dev/null #supress notes on systemd
@@ -77,3 +78,24 @@ exit 0
 %{_bindir}/mesh
 %{_bindir}/meshctl
 %{_sysconfdir}/systemd/system/mesh.service
+%{_datadir}/riv/ui/index.html
+%{_datadir}/riv/ui/country.json
+%{_datadir}/riv/ui/webfonts/fa-brands-400.ttf
+%{_datadir}/riv/ui/webfonts/fa-brands-400.woff2
+%{_datadir}/riv/ui/webfonts/fa-regular-400.ttf
+%{_datadir}/riv/ui/webfonts/fa-regular-400.woff2
+%{_datadir}/riv/ui/webfonts/fa-solid-900.ttf
+%{_datadir}/riv/ui/webfonts/fa-solid-900.woff2
+%{_datadir}/riv/ui/webfonts/fa-v4compatibility.ttf
+%{_datadir}/riv/ui/webfonts/fa-v4compatibility.woff2
+%{_datadir}/riv/ui/assets/all.min.css
+%{_datadir}/riv/ui/assets/bulmaswatch.min.css
+%{_datadir}/riv/ui/assets/flag-icons.css
+%{_datadir}/riv/ui/assets/flag-icons.min.css
+%{_datadir}/riv/ui/assets/mesh-ui-es5.js
+%{_datadir}/riv/ui/assets/mesh-ui.css
+%{_datadir}/riv/ui/assets/mesh-ui.js
+%{_datadir}/riv/ui/assets/polyfills.js
+
+
+
