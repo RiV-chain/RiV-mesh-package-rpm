@@ -37,10 +37,11 @@ export GOPROXY="https://proxy.golang.org,direct"
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/%{_datadir}/riv
 install -m 0755 -D mesh %{buildroot}/%{_bindir}/mesh
 install -m 0755 -D meshctl %{buildroot}/%{_bindir}/meshctl
 install -m 0755 -D contrib/systemd/mesh.service %{buildroot}/%{_sysconfdir}/systemd/system/mesh.service
-install -m 0755 -D contrib/ui/mesh-ui/ui %{buildroot}/%{_datadir}/riv/ui
+cp -a contrib/ui/mesh-ui/ui %{buildroot}/%{_datadir}/riv
 
 %post
 /sbin/chkconfig --add mesh >/dev/null 2>/dev/null #supress notes on systemd
