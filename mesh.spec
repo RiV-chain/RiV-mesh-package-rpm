@@ -33,7 +33,7 @@ exit 0
 export PKGNAME="%{name}"
 export PKGVER="%{version}"
 export GOPROXY="https://proxy.golang.org,direct"
-./build -s
+./build
 
 %install
 rm -rf "%{buildroot}"
